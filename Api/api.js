@@ -40,9 +40,11 @@ router.get("/", (req, res) => {
 router.get("/api/alunos", async (req, res) => {
     try
     {
-        const alunos = await execQuery("SELECT * FROM KITCHNY.DBO.ALUNOS");
+        const ret = await execQuery("SELECT * FROM KITCHNY.DBO.ALUNOS");
+
+        const alunos = ret.recordset;
     
-        return res.json(alunos.recordset);
+        return res.json(alunos);
     }
     catch (error)
     {
