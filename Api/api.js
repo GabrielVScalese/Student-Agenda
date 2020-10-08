@@ -37,7 +37,7 @@ router.get("/", (req, res) => {
     return res.json({Message: "API rodando!"});
 });
 
-router.get("/api/alunos", async (req, res) => {
+router.get("/api/alunos/getAll", async (req, res) => {
     try
     {
         const ret = await execQuery("SELECT * FROM KITCHNY.DBO.ALUNOS");
@@ -52,7 +52,7 @@ router.get("/api/alunos", async (req, res) => {
     }
 });
 
-router.get("/api/aluno/:id?", async (req, res) => {
+router.get("/api/alunos/getAluno/:id?", async (req, res) => {
     try
     {
         const ra = req.params.id;
@@ -70,7 +70,7 @@ router.get("/api/aluno/:id?", async (req, res) => {
     }
 });
 
-router.post("/api/insertAluno", async (req, res) => {
+router.post("/api/alunos/insertAluno", async (req, res) => {
     try
     {
         const aluno = req.body;
@@ -86,7 +86,7 @@ router.post("/api/insertAluno", async (req, res) => {
     }
 });
 
-router.put("/api/updateAluno", async (req, res) => {
+router.put("/api/alunos/updateAluno", async (req, res) => {
     try
     {
         const aluno = req.body;
@@ -110,7 +110,7 @@ router.put("/api/updateAluno", async (req, res) => {
     }
 });
 
-router.delete("/api/deleteAluno/:id?", async (req, res) => {
+router.delete("/api/alunos/deleteAluno/:id?", async (req, res) => {
     try
     {
         const ra = req.params.id;

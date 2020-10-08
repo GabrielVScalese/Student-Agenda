@@ -4,7 +4,6 @@ public class Aluno {
 
     private String ra, nome, email;
 
-
     public Aluno(String ra, String nome, String email)
     {
         this.ra = ra;

@@ -43,9 +43,9 @@ public class AlunoAdapter extends ArrayAdapter<Aluno> {
         TextView email = view.findViewById(R.id.txtEmail);
 
         Aluno aluno = dados.get(position);
-        ra.setText(aluno.getRA());
-        nome.setText(aluno.getNome());
-        email.setText(aluno.getEmail());
+        ra.setText("RA: " + aluno.getRA());
+        nome.setText("Nome: " + aluno.getNome());
+        email.setText("Email: " + aluno.getEmail());
 
         return view;
     }

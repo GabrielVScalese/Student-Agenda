@@ -11,30 +11,70 @@
         android:id="@+id/textView5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Texto introdutóro" />
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:text="Consulta e Exclusão de Aluno"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="50dp"
+        android:textStyle="bold"
+        android:textColor="@color/corDoTexto"
+        android:textSize="20sp"/>
 
     <EditText
-        android:id="@+id/edtRA"
-        android:layout_width="match_parent"
+        android:id="@+id/edtRAConsul"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="textPersonName"
         android:hint="Coloque aqui o RA do aluno desejado"
+        android:layout_marginBottom="30dp"
+        android:textSize="15sp"
+        android:paddingLeft="10dp"
+        android:layout_gravity="center"
         />
 
     <Button
-        android:id="@+id/btnConsultar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Consultar" />
+        android:id="@+id/btnConsultarConsul"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:text="Consultar"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bordas_button"
+        android:backgroundTint="#C4C4C4"
+        />
 
     <Button
         android:id="@+id/btnExcluir"
+        android:layout_width="320dp"
+        android:layout_height="40dp"
+        android:text="Excluir"
+        android:layout_marginBottom="10dp"
+        android:layout_gravity="center"
+        android:background="@drawable/bordas_button"
+        android:backgroundTint="#C4C4C4"
+        />
+
+
+    <TextView
+        android:id="@+id/txtTitulo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Excluir" />
+        android:text=""
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:textStyle="bold"
+        android:textColor="@color/corDoTexto"
+        android:textSize="16sp"
+        android:visibility="invisible"/>
+
+    <ListView
+        android:id="@+id/listaAlunos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
+
+
 </LinearLayout>

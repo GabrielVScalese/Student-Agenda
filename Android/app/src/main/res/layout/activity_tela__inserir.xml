@@ -16,7 +16,7 @@
 
         />
     <EditText
-        android:id="@+id/edtRA"
+        android:id="@+id/edtRAInser"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -25,10 +25,12 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
+        android:textSize="16sp"
+        android:maxLength="5"
         />
 
     <EditText
-        android:id="@+id/edtNome"
+        android:id="@+id/edtNomeInser"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -37,10 +39,12 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
+        android:textSize="16sp"
+        android:maxLength="50"
         />
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtEmailInser"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,6 +53,8 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
+        android:textSize="16sp"
+        android:maxLength="50"
         />
 
    <Button
