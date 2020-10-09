@@ -1,14 +1,14 @@
 package com.example.student_agenda;
 
-public class Aluno {
-
+public class Aluno
+{
     private String ra, nome, email;
 
-    public Aluno(String ra, String nome, String email)
+    public Aluno(String ra, String nome, String email) throws Exception
     {
-        this.ra = ra;
-        this.nome = nome;
-        this.email = email;
+        setRA(ra);
+        setNome(nome);
+        setEmail(email);
     }
 
     public String getRA()
@@ -16,25 +16,9 @@ public class Aluno {
         return ra;
     }
 
-    public void setRA(String ra) throws Exception
-    {
-        if(!(ra == null || ra.equals("")))
-            this.ra = ra;
-
-        throw new Exception("RA invalido!");
-    }
-
     public String getNome()
     {
         return nome;
-    }
-
-    public void setNome(String nome) throws Exception
-    {
-        if(!(nome == null || nome.equals("")))
-            this.nome = nome;
-
-        throw new Exception("Nome invalido!");
     }
 
     public String getEmail()
@@ -42,11 +26,27 @@ public class Aluno {
         return email;
     }
 
+    public void setRA(String ra) throws Exception
+    {
+        if (ra == null || ra.equals(""))
+            throw new Exception("RA invalido!");
+
+        this.ra = ra;
+    }
+
+    public void setNome (String nome) throws Exception
+    {
+        if (nome == null || nome.equals(""))
+            throw new Exception("Nome invalido!");
+
+        this.nome = nome;
+    }
+
     public void setEmail(String email) throws Exception
     {
-        if(!(email == null || email.equals("")))
-            this.email = email;
+        if (email == null || email.equals(""))
+            throw new Exception ("Email inválido!");
 
-        throw new Exception("Email invalido!");
+        this.email = email;
     }
 }

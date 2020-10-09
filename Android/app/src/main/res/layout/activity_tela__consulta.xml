@@ -18,7 +18,8 @@
         android:layout_marginBottom="50dp"
         android:textStyle="bold"
         android:textColor="@color/corDoTexto"
-        android:textSize="20sp"/>
+        android:textSize="20sp"
+        />
 
     <EditText
         android:id="@+id/edtRAConsul"
@@ -31,6 +32,7 @@
         android:textSize="15sp"
         android:paddingLeft="10dp"
         android:layout_gravity="center"
+        android:maxLength="5"
         />
 
     <Button
@@ -49,12 +51,11 @@
         android:layout_width="320dp"
         android:layout_height="40dp"
         android:text="Excluir"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="5dp"
         android:layout_gravity="center"
         android:background="@drawable/bordas_button"
         android:backgroundTint="#C4C4C4"
         />
-
 
     <TextView
         android:id="@+id/txtTitulo"
@@ -64,17 +65,18 @@
         android:layout_gravity="center"
         android:textAlignment="center"
         android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
+        android:layout_marginBottom="20dp"
         android:textStyle="bold"
         android:textColor="@color/corDoTexto"
         android:textSize="16sp"
-        android:visibility="invisible"/>
+        android:visibility="invisible"
+        />
 
     <ListView
         android:id="@+id/listaAlunos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical"/>
-
+        android:scrollbars="vertical"
+        />
 
 </LinearLayout>

@@ -16,7 +16,8 @@
             android:layout_height="wrap_content"
             android:textSize="16sp"
             android:textColor="#363636"
-            android:layout_marginBottom="10sp"/>
+            android:layout_marginBottom="10sp"
+            />
 
         <TextView
             android:id="@+id/txtNome"
@@ -24,7 +25,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
             android:textSize="16sp"
-            android:textColor="#363636"/>
+            android:textColor="#363636"
+            />
 
         <TextView
             android:id="@+id/txtEmail"
@@ -32,7 +34,9 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="10sp"
             android:textSize="16sp"
-            android:textColor="#363636"/>
+            android:textColor="#363636"
+            />
 
     </LinearLayout>
+
 </ScrollView>

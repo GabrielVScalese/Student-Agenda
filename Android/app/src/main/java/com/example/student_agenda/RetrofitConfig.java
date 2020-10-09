@@ -3,7 +3,8 @@ package com.example.student_agenda;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
-public class RetrofitConfig {
+public class RetrofitConfig
+{
     private Retrofit retrofit;
 
     public RetrofitConfig ()

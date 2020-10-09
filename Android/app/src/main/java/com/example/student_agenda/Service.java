@@ -7,10 +7,10 @@ import javax.net.ssl.SSLEngineResult;
 import retrofit.Call;
 import retrofit.http.*;
 
-public interface Service {
-
+public interface Service
+{
     @GET("alunos")
-    Call<List<Aluno>> getAll();
+    Call<List<Aluno>> getAlunos ();
 
     @GET("aluno/{ra}")
     Call<Aluno> getAluno (@Path("ra") String nome);
@@ -19,8 +19,8 @@ public interface Service {
     Call<Status> inserirAluno (@Body Aluno aluno);
 
     @PUT("updateAluno")
-    Call<Aluno> alterarAluno (@Body Aluno aluno);
+    Call<Status> alterarAluno (@Body Aluno aluno);
 
     @DELETE("deleteAluno/{ra}")
-    Call<Object> excluirAluno (@Path("ra") String ra);
+    Call<Status> excluirAluno (@Path("ra") String ra);
 }

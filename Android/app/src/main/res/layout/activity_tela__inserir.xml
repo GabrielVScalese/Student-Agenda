@@ -13,8 +13,9 @@
         android:layout_gravity="center"
         android:background="@drawable/ic_baseline_add_circle_24"
         android:layout_marginTop="30dp"
-
+        android:layout_marginBottom="20dp"
         />
+
     <EditText
         android:id="@+id/edtRAInser"
         android:layout_width="350dp"
@@ -58,7 +59,7 @@
         />
 
    <Button
-       android:id="@+id/btnInserir"
+       android:id="@+id/btnInserirInser"
        android:layout_width="300dp"
        android:layout_height="wrap_content"
        android:text="Inserir"
@@ -66,4 +67,5 @@
        android:background="@drawable/bordas_button"
        android:backgroundTint="#C4C4C4"
        />
+
 </LinearLayout>

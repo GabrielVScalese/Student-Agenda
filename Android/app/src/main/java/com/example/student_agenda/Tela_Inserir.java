@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,17 +20,17 @@ import retrofit.Retrofit;
 
 public class Tela_Inserir extends AppCompatActivity {
 
-    Button btnInserir;
-    EditText edtRA;
-    EditText edtNome;
-    EditText edtEmail;
+    private Button btnInserir;
+    private EditText edtRA;
+    private EditText edtNome;
+    private EditText edtEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tela__inserir);
 
-        btnInserir = findViewById(R.id.btnInserir);
+        btnInserir = findViewById(R.id.btnInserirInser);
         edtRA = findViewById(R.id.edtRAInser);
         edtNome = findViewById(R.id.edtNomeInser);
         edtEmail = findViewById(R.id.edtEmailInser);
@@ -36,38 +38,52 @@ public class Tela_Inserir extends AppCompatActivity {
         btnInserir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String ra = edtRA.getText().toString();
                 String nome = edtNome.getText().toString();
                 String email = edtEmail.getText().toString();
 
                 if (validar(ra, nome, email))
                 {
-                    Aluno aluno = new Aluno (ra, nome, email);
-                    inserirAluno(aluno);
+                    try
+                    {
+                        Aluno aluno = new Aluno (ra, nome, email);
+                        inserirAluno(aluno);
+                    }
+                    catch (Exception e)
+                    {}
                 }
             }
         });
     }
 
-    public void inserirAluno (Aluno aluno)
+    private void inserirAluno (Aluno aluno)
     {
         Call<Status> call = new RetrofitConfig().getService().inserirAluno(aluno);
         call.enqueue(new Callback<Status>() {
             @Override
             public void onResponse(Response<Status> response, Retrofit retrofit) {
                     if (response.isSuccess())
-                         Toast.makeText(Tela_Inserir.this, "Aluno incluído com sucesso!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Tela_Inserir.this, "Aluno incluído com sucesso!", Toast.LENGTH_SHORT).show();
                     else
-                        Toast.makeText(Tela_Inserir.this, "RA já existente!", Toast.LENGTH_SHORT).show();
+                    {
+                        try
+                        {
+                            JSONObject jObjError = new JSONObject(response.errorBody().string());
+                            Toast.makeText(Tela_Inserir.this, jObjError.getString("status"), Toast.LENGTH_SHORT).show();
+                        }
+                        catch (Exception e)
+                        { }
+                    }
                 }
+
                 @Override
                 public void onFailure(Throwable t) {
+                    Toast.makeText(Tela_Inserir.this, "Falha na inserção de aluno!", Toast.LENGTH_SHORT).show();
                 }
             });
     }
 
-    public boolean validar (String ra, String nome, String email)
+    private boolean validar (String ra, String nome, String email)
     {
         if (ra.equals(""))
         {

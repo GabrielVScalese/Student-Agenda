@@ -13,22 +13,25 @@
         android:layout_gravity="center"
         android:background="@drawable/ic_baseline_edit_24"
         android:layout_marginTop="30dp"
-
+        android:layout_marginBottom="20dp"
         />
+
     <EditText
-        android:id="@+id/edtRA"
+        android:id="@+id/edtRAAlter"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:hint="Digite um RA de um aluno"
+        android:inputType="number"
+        android:hint="Digite o RA do aluno a ser alterado"
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
+        android:textSize="16dp"
+        android:maxLength="5"
         />
 
     <EditText
-        android:id="@+id/edtNome"
+        android:id="@+id/edtNomeAlter"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -37,10 +40,12 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
+        android:textSize="16dp"
+        android:maxLength="50"
         />
 
     <EditText
-        android:id="@+id/edtEmail"
+        android:id="@+id/edtEmailAlter"
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
@@ -49,10 +54,12 @@
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"
         android:paddingLeft="10dp"
+        android:textSize="16dp"
+        android:maxLength="50"
         />
 
     <Button
-        android:id="@+id/btnInserir"
+        android:id="@+id/btnAlterarAlter"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Alterar"
@@ -60,4 +67,5 @@
         android:background="@drawable/bordas_button"
         android:backgroundTint="#C4C4C4"
         />
+
 </LinearLayout>

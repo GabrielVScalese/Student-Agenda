@@ -12,6 +12,8 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -23,12 +25,12 @@ import retrofit.Retrofit;
 
 public class Tela_Consulta extends AppCompatActivity {
 
-    Button btnConsultar;
-    Button btnExcluir;
-    TextView titulo;
-    EditText edtRA;
-    ListView listaView;
-    List<Aluno> listaAlunos;
+    private Button btnConsultar;
+    private Button btnExcluir;
+    private TextView titulo;
+    private EditText edtRA;
+    private ListView listaView;
+    private List<Aluno> listaAlunos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,18 +46,16 @@ public class Tela_Consulta extends AppCompatActivity {
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 String ra = edtRA.getText().toString();
 
                 if (ra.equals(""))
                     consultarAlunos();
                 else
-                {
                     if (validar(ra))
                         consultarAluno(ra);
                     else
                         Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();
-                }
+
             }
         });
 
@@ -67,19 +67,17 @@ public class Tela_Consulta extends AppCompatActivity {
                 if (ra.equals(""))
                     Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();
                 else
-                    if (Integer.parseInt(ra) < 0)
-                        Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();
-                    else if (ra.length() != 5)
-                             Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();
-                    else
+                    if (validar(ra))
                         excluirAluno(edtRA.getText().toString());
+                    else
+                        Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void consultarAlunos ()
+    private void consultarAlunos ()
     {
-        Call<List<Aluno>> call = new RetrofitConfig().getService().getAll();
+        Call<List<Aluno>> call = new RetrofitConfig().getService().getAlunos();
         call.enqueue(new Callback<List<Aluno>>() {
             @Override
             public void onResponse(Response<List<Aluno>> response, Retrofit retrofit) {
@@ -90,12 +88,12 @@ public class Tela_Consulta extends AppCompatActivity {
 
             @Override
             public void onFailure(Throwable t) {
-
+                Toast.makeText(Tela_Consulta.this, "Falha na consulta de alunos!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void consultarAluno (String ra)
+    private void consultarAluno (String ra)
     {
         Call<Aluno> call = new RetrofitConfig().getService().getAluno(ra);
         call.enqueue(new Callback<Aluno>() {
@@ -109,41 +107,52 @@ public class Tela_Consulta extends AppCompatActivity {
                 }
                 else
                 {
-                    listaView.clearChoices();
-                    Toast.makeText(Tela_Consulta.this, "Aluno não encontrado!", Toast.LENGTH_SHORT).show();
+                    try
+                    {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(Tela_Consulta.this, jObjError.getString("status"), Toast.LENGTH_SHORT).show();
+                    }
+                    catch (Exception e)
+                    { }
                 }
             }
 
             @Override
             public void onFailure(Throwable t) {
+                Toast.makeText(Tela_Consulta.this, "Falha na consulta de aluno!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public void excluirAluno (String ra)
+    private void excluirAluno (String ra)
     {
-        Call<Object> call = new RetrofitConfig().getService().excluirAluno(ra);
-        call.enqueue(new Callback<Object>() {
+        Call<Status> call = new RetrofitConfig().getService().excluirAluno(ra);
+        call.enqueue(new Callback<Status>() {
             @Override
-            public void onResponse(Response<Object> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
+            public void onResponse(Response<Status> response, Retrofit retrofit) {
+                if (response.isSuccess())
                     Toast.makeText(Tela_Consulta.this, "Aluno excluído com sucesso!", Toast.LENGTH_SHORT).show();
-                }
                 else
                 {
-                    listaView.clearChoices();
-                    Toast.makeText(Tela_Consulta.this, "Aluno não encontrado!", Toast.LENGTH_SHORT).show();
+                    try
+                    {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        Toast.makeText(Tela_Consulta.this, jObjError.getString("status"), Toast.LENGTH_SHORT).show();
+                    }
+                    catch (Exception e)
+                    { }
                 }
+
             }
 
             @Override
             public void onFailure(Throwable t) {
-
+                Toast.makeText(Tela_Consulta.this, "Falha na exclusão de aluno!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
-    public boolean validar (String ra)
+    private boolean validar (String ra)
     {
         if (Integer.parseInt(ra) < 0)
         {
@@ -160,8 +169,7 @@ public class Tela_Consulta extends AppCompatActivity {
         return true;
     }
 
-
-    public void mostrarTudoListView (List<Aluno> lista)
+    private void mostrarTudoListView (List<Aluno> lista)
     {
         listaView.clearChoices();
 

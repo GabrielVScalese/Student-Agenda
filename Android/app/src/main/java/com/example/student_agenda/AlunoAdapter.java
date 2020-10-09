@@ -1,5 +1,6 @@
 package com.example.student_agenda;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,12 +14,11 @@ import androidx.annotation.Nullable;
 
 import java.util.List;
 
-
 public class AlunoAdapter extends ArrayAdapter<Aluno> {
 
-    Context context;
-    int layoutResourceId;
-    List<Aluno> dados;
+    private Context context;
+    private int layoutResourceId;
+    private List<Aluno> dados;
 
     public AlunoAdapter(@NonNull Context context, int resource, @NonNull List<Aluno> dados) {
         super(context, resource, dados);
@@ -28,6 +28,7 @@ public class AlunoAdapter extends ArrayAdapter<Aluno> {
         this.dados = dados;
     }
 
+    @SuppressLint("SetTextI18n")
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
