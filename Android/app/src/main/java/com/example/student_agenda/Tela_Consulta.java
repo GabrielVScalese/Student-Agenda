@@ -44,10 +44,18 @@ public class Tela_Consulta extends AppCompatActivity {
         btnConsultar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 String ra = edtRA.getText().toString();
 
-                if (validar(ra))
-                    consultarAluno(ra);
+                if (ra.equals(""))
+                    consultarAlunos();
+                else
+                {
+                    if (validar(ra))
+                        consultarAluno(ra);
+                    else
+                        Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -75,15 +83,9 @@ public class Tela_Consulta extends AppCompatActivity {
         call.enqueue(new Callback<List<Aluno>>() {
             @Override
             public void onResponse(Response<List<Aluno>> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
                     List<Aluno> listaAlunos = new ArrayList<Aluno>();
                     listaAlunos = response.body();
                     mostrarTudoListView(listaAlunos);
-                }
-                else
-                {
-
-                }
             }
 
             @Override
@@ -107,7 +109,8 @@ public class Tela_Consulta extends AppCompatActivity {
                 }
                 else
                 {
-
+                    listaView.clearChoices();
+                    Toast.makeText(Tela_Consulta.this, "Aluno não encontrado!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -128,7 +131,8 @@ public class Tela_Consulta extends AppCompatActivity {
                 }
                 else
                 {
-
+                    listaView.clearChoices();
+                    Toast.makeText(Tela_Consulta.this, "Aluno não encontrado!", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -141,12 +145,6 @@ public class Tela_Consulta extends AppCompatActivity {
 
     public boolean validar (String ra)
     {
-        if (ra.equals(""))
-        {
-            consultarAlunos();
-            return false;
-        }
-
         if (Integer.parseInt(ra) < 0)
         {
             Toast.makeText(Tela_Consulta.this, "RA inválido!", Toast.LENGTH_SHORT).show();

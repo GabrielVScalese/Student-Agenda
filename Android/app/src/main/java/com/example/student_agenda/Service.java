@@ -9,14 +9,14 @@ import retrofit.http.*;
 
 public interface Service {
 
-    @GET("getAll")
+    @GET("alunos")
     Call<List<Aluno>> getAll();
 
-    @GET("getAluno/{ra}")
+    @GET("aluno/{ra}")
     Call<Aluno> getAluno (@Path("ra") String nome);
 
     @POST("insertAluno")
-    Call<Object> inserirAluno (@Body Aluno aluno);
+    Call<Status> inserirAluno (@Body Aluno aluno);
 
     @PUT("updateAluno")
     Call<Aluno> alterarAluno (@Body Aluno aluno);

@@ -22,7 +22,6 @@ public class Tela_Inserir extends AppCompatActivity {
     EditText edtRA;
     EditText edtNome;
     EditText edtEmail;
-    Aluno umAluno;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +37,9 @@ public class Tela_Inserir extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                umAluno = null;
                 String ra = edtRA.getText().toString();
                 String nome = edtNome.getText().toString();
                 String email = edtEmail.getText().toString();
-
-                consultarAluno(ra);
 
                 if (validar(ra, nome, email))
                 {
@@ -56,45 +52,19 @@ public class Tela_Inserir extends AppCompatActivity {
 
     public void inserirAluno (Aluno aluno)
     {
-        Call<Object> call = new RetrofitConfig().getService().inserirAluno(aluno);
-        call.enqueue(new Callback<Object>() {
+        Call<Status> call = new RetrofitConfig().getService().inserirAluno(aluno);
+        call.enqueue(new Callback<Status>() {
             @Override
-            public void onResponse(Response<Object> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    Toast.makeText(Tela_Inserir.this, "Aluno incluído com sucesso!", Toast.LENGTH_SHORT).show();
+            public void onResponse(Response<Status> response, Retrofit retrofit) {
+                    if (response.isSuccess())
+                         Toast.makeText(Tela_Inserir.this, "Aluno incluído com sucesso!", Toast.LENGTH_SHORT).show();
+                    else
+                        Toast.makeText(Tela_Inserir.this, "RA já existente!", Toast.LENGTH_SHORT).show();
                 }
-                else
-                {
-
+                @Override
+                public void onFailure(Throwable t) {
                 }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
-    }
-
-    public void consultarAluno (String ra)
-    {
-        Call<Aluno> call = new RetrofitConfig().getService().getAluno(ra);
-        call.enqueue(new Callback<Aluno>() {
-            @Override
-            public void onResponse(Response<Aluno> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    Aluno aluno = response.body();
-                    setAluno(aluno);
-                }
-                else
-                {
-
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-            }
-        });
+            });
     }
 
     public boolean validar (String ra, String nome, String email)
@@ -141,17 +111,6 @@ public class Tela_Inserir extends AppCompatActivity {
             return false;
         }
 
-        if (umAluno != null)
-        {
-            Toast.makeText(Tela_Inserir.this, "RA existente!", Toast.LENGTH_SHORT).show();
-            return false;
-        }
-
         return true;
-    }
-
-    public void setAluno (Aluno aluno)
-    {
-        umAluno = new Aluno (aluno.getRA(), aluno.getNome(), aluno.getEmail());
     }
 }

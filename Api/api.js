@@ -37,7 +37,7 @@ router.get("/", (req, res) => {
     return res.json({Message: "API rodando!"});
 });
 
-router.get("/api/alunos/getAll", async (req, res) => {
+router.get("/api/alunos", async (req, res) => {
     try
     {
         const ret = await execQuery("SELECT * FROM KITCHNY.DBO.ALUNOS");
@@ -48,11 +48,11 @@ router.get("/api/alunos/getAll", async (req, res) => {
     }
     catch (error)
     {
-        return res.status(500).send({error: "Erro na busca de alunos!" });
+        return res.status(500).json({status: "Erro na busca de alunos!" });
     }
 });
 
-router.get("/api/alunos/getAluno/:id?", async (req, res) => {
+router.get("/api/aluno/:id?", async (req, res) => {
     try
     {
         const ra = req.params.id;
@@ -60,39 +60,44 @@ router.get("/api/alunos/getAluno/:id?", async (req, res) => {
         const aluno = await getAluno(ra);
 
         if (aluno == undefined)
-            return res.status(406).send({error: "Aluno não encontrado!"});
+            return res.status(406).json({status: "Aluno não encontrado!"});
 
         return res.json(aluno);
     }
     catch (error)
     {
-        return res.status(500).send({error: "Erro na busca de aluno!" });
+        return res.status(500).json({status: "Erro na busca de aluno!" });
     }
 });
 
-router.post("/api/alunos/insertAluno", async (req, res) => {
+router.post("/api/insertAluno", async (req, res) => {
     try
     {
         const aluno = req.body;
 
+        const aux = await getAluno(aluno.ra);
+
+        if (aux != undefined)
+            return res.status(406).json({status: "RA existente!"});
+
         await execQuery ("INSERT INTO KITCHNY.DBO.ALUNOS VALUES ('" + aluno.ra + "', '" + 
         aluno.nome + "', '" + aluno.email + "')");
 
-        return res.status(200).send({succesfull: "Aluno incluído com sucesso!" });
+        return res.status(200).json({status: "Aluno incluído com sucesso!" });
     }
     catch (error)
     {
-        return res.status(500).send({error: "Erro na inclusão de aluno!"});
+        return res.status(500).json({status: "Erro na inclusão de aluno!"});
     }
 });
 
-router.put("/api/alunos/updateAluno", async (req, res) => {
+router.put("/api/updateAluno", async (req, res) => {
     try
     {
         const aluno = req.body;
 
         if (await getAluno(aluno.ra) == undefined)
-            return res.status(406).send({error: "Aluno não encontrado!"});
+            return res.status(406).json({status: "Aluno não encontrado!"});
 
         await execQuery ("UPDATE KITCHNY.DBO.ALUNOS \n SET NOME = '" +
         aluno.nome +
@@ -102,29 +107,29 @@ router.put("/api/alunos/updateAluno", async (req, res) => {
         aluno.ra +
         "';");
 
-        return res.status(200).send({succesfull: "Aluno alterado com sucesso!" });
+        return res.status(200).json({status: "Aluno alterado com sucesso!" });
     }
     catch (error)
     {
-        return res.status(500).send({error: "Erro na alteração de aluno!"});
+        return res.status(500).json({status: "Erro na alteração de aluno!"});
     }
 });
 
-router.delete("/api/alunos/deleteAluno/:id?", async (req, res) => {
+router.delete("/api/deleteAluno/:id?", async (req, res) => {
     try
     {
         const ra = req.params.id;
 
         if (await getAluno(ra) == undefined)
-            return res.status(406).send({error: "Aluno não encontrado!"});
+            return res.status(406).json({status: "Aluno não encontrado!"});
 
         await execQuery ("DELETE FROM KITCHNY.DBO.ALUNOS WHERE RA = '" + ra + "'");
 
-        return res.status(200).send({succesfull: "Aluno excluído com sucesso!" });
+        return res.status(200).json({status: "Aluno excluído com sucesso!" });
     }
     catch (error)
     {
-        return res.status(500).send({error: "Erro na exclusão de aluno!"});
+        return res.status(500).json({status: "Erro na exclusão de aluno!"});
     }
 });
 

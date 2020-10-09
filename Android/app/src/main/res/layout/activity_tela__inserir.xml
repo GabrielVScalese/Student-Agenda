@@ -20,7 +20,7 @@
         android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:inputType="textPersonName"
+        android:inputType="number"
         android:hint="Digite aqui o RA do aluno"
         android:layout_marginBottom="30dp"
         android:layout_gravity="center"

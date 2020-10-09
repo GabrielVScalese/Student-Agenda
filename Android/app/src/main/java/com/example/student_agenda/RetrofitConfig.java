@@ -8,7 +8,7 @@ public class RetrofitConfig {
 
     public RetrofitConfig ()
     {
-        this.retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.28:3000/api/alunos/").
+        this.retrofit = new Retrofit.Builder().baseUrl("http://192.168.0.28:3000/api/").
                 addConverterFactory(GsonConverterFactory.create()).build();
     }
 
